@@ -1,20 +1,21 @@
 % Spike
 
 %% testing?
-test = 1;
+test = 0;
 %% initalize values
 filepath = 'C:\Users\ipzach\Documents\Spiking Data';
-cd(filepath)
-animallist = dir;
-recording_freq = 32000;
-ds_freq = 1000;
-animal_names = [];
 if test
     disp('Reading Ephys')
     test_ephys = read_neuralynx_ncs('test.ncs');
     disp('Reading Spikes')
     test_spike = readNexFile('test.nex');
 end
+cd(filepath)
+animallist = dir;
+recording_freq = 32000;
+ds_freq = 1000;
+animal_names = [];
+
 % Split animals into treatment groups
 for groups = 3 % 1:5
     switch groups
@@ -47,7 +48,8 @@ for groups = 3 % 1:5
             cd(channel_names)
             recording_folders = dir('REC*');
             full_ephys = [];
-            full_spikes = [];
+            multi_unit = [];
+            single_unit = struct([]);
             time_adjust = 0;
             for k = 1:length(recording_folders)
                 if test
@@ -61,15 +63,20 @@ for groups = 3 % 1:5
                     spike = readNexFile(dir('*.nex').name);
                 end % if for data import
                 
-                multi_unit = [full_spikes spike.neurons{1,1}.timestamps + time_adjust;];
+                multi_unit = [multi_unit full_spikes; spike.neurons{1,1}.timestamps + time_adjust];
                 for kk = 2:length(spike.neurons)
-                    single_unit{kk-1,1} = [single_unit{kk-1} spike.neurons{kk-1,1}.timestamps + time_adjust;];
-                end
+                    if kk ==2
+                        single_unit{1,1} = spike.neurons{kk-1,1}.timestamps + time_adjust;
+                    else
+                        single_unit{1,1} = [single_unit{1,1}; spike.neurons{kk-1,1}.timestamps + time_adjust];
+                    end % if
+                end % kk
                 
                 full_ephys = [full_ephys reshape(ephys.dat, 1, [])];
                 time_adjust = time_adjust + length(full_ephys)./recording_freq;
-                
+                cd ..
             end % k recording folders
+            
             
             % Analysis
             output = function_draft(spikes, ephys,timeline);
