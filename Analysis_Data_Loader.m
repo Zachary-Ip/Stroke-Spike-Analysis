@@ -13,6 +13,7 @@ end
 cd(filepath)
 animallist = dir;
 recording_freq = 32000;
+ds_factor = 32;
 ds_freq = 1000;
 animal_names = [];
 
@@ -49,7 +50,7 @@ for groups = 3 % 1:5
             recording_folders = dir('REC*');
             full_ephys = [];
             multi_unit = [];
-            single_unit = struct([]);
+            ind_units = cell(3,3);
             time_adjust = 0;
             for k = 1:length(recording_folders)
                 if test
@@ -62,24 +63,39 @@ for groups = 3 % 1:5
                     disp('Reading Spikes')
                     spike = readNexFile(dir('*.nex').name);
                 end % if for data import
-                
-                multi_unit = [multi_unit full_spikes; spike.neurons{1,1}.timestamps + time_adjust];
+                multi_unit = [multi_unit; spike.neurons{1,1}.timestamps + time_adjust];
                 for kk = 2:length(spike.neurons)
-                    if kk ==2
-                        single_unit{1,1} = spike.neurons{kk-1,1}.timestamps + time_adjust;
-                    else
-                        single_unit{1,1} = [single_unit{1,1}; spike.neurons{kk-1,1}.timestamps + time_adjust];
-                    end % if
+                        ind_units{kk-1,k} = spike.neurons{kk-1,1}.timestamps + time_adjust;
                 end % kk
                 
                 full_ephys = [full_ephys reshape(ephys.dat, 1, [])];
-                time_adjust = time_adjust + length(full_ephys)./recording_freq;
+                time_adjust = length(full_ephys)./recording_freq;
                 cd ..
             end % k recording folders
+            single_unit1 = [ind_units{1,1}; ind_units{1,2}; ind_units{1,3}];
+            single_unit2 = [ind_units{2,1}; ind_units{2,2}; ind_units{2,3}];
+            single_unit3 = [ind_units{3,1}; ind_units{3,2}; ind_units{3,3}];
             
+            ds_ephys = downsample(full_ephys, ds_factor);
+            ephys_time_idx = 1:length(ds_ephys);
+            ephys_time_idx = ephys_time_idx./ds_freq;
             
             % Analysis
-            output = function_draft(spikes, ephys,timeline);
+            % Relevant variables for functions are:
+            % ds_ephys - ephys downsampled to 1kHz
+            % ephys_time_idx - ephys samples in seconds
+            % (potentially) full_ephys - raw ephys at 32kHz
+            
+            % multi_unit - most consistent data we have
+            % single_unit# - may be empty depending on the animal, handles
+            % up to 3 units
+            
+            total_time = length(ds_ephys)./ recording_freq;
+            [firing_rate] = calculateFiringRate(spikes, total_time, recording_freq);
+            [ISI] = calculateISI(spikes);
+            [time_range_voltage_arr_avg] = calculateSTA(spikes, total_time, recording_freq);
+            bp_theta = bandpass(ds_ephys, [3, 7], recording_frequency);
+            [spike_phases] = calculateSFC(spike, ds_ephys, recording_freq);
             
         end % hemispheres
         
