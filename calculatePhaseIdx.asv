@@ -1,0 +1,9 @@
+function [PI] = calculatePhaseIdx(phase)
+winsize = 2*pi/nbin;
+position = nbin*winsize-pi;
+for i = 1:nbin
+    find(phase <position
+
+
+
+end
