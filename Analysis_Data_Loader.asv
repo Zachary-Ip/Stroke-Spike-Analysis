@@ -14,7 +14,6 @@ for group = 1:5
     mFR_storage  = cell(1,2);
     mISI_storage = cell(1,2);
     mSFC_storage = cell(1,2);
-    mSFC_freq_storage = cell(1,2);
     % spec_storage = cell(5,2);
     
     mSTA_storage    = cell(1,2);
@@ -32,28 +31,6 @@ for group = 1:5
     mSTAmean_b_storage  = cell(1,2);
     mSTAmean_g_storage  = cell(1,2);
     mSTAmean_hg_storage  = cell(1,2);
-
-    sFR_storage  = cell(1,2);
-    sISI_storage = cell(1,2);
-    sSFC_storage = cell(1,2);
-    sSFC_freq_storage = cell(1,2);
-    % spec_storage = cell(5,2);
-    
-    sSTA_storage    = cell(1,2);
-    sSTA_d_storage  = cell(1,2);
-    sSTA_t_storage  = cell(1,2);
-    sSTA_a_storage  = cell(1,2);
-    sSTA_b_storage  = cell(1,2);
-    sSTA_g_storage  = cell(1,2);
-    sSTA_hg_storage = cell(1,2);
-    
-    sSTAmean_storage = cell(1,2);
-    sSTAmean_d_storage  = cell(1,2);
-    sSTAmean_t_storage  = cell(1,2);
-    sSTAmean_a_storage  = cell(1,2);
-    sSTAmean_b_storage  = cell(1,2);
-    sSTAmean_g_storage  = cell(1,2);
-    sSTAmean_hg_storage  = cell(1,2);
     
     % Split animals into treatment groups
     switch group
@@ -189,7 +166,7 @@ for group = 1:5
             num_units = max(sum(~cellfun(@isempty, ind_units), 1));
             
             for ii = 1:num_units
-                single_unit = [ind_units{ii,1}; ind_units{ii,2}; ind_units{ii,3}];
+                single_unit = [ind_units{i,1}; ind_units{i,2}; ind_units{i,3}];
                 [sFR] = calculateFiringRate(single_unit, total_time, ds_freq);
                 [sISI] = calculateISI(single_unit);
                 [~,sSFC,~,~,~,~,sSFC_freq] = getCoherence(single_unit,ds_ephys,ds_freq,1,0,0);

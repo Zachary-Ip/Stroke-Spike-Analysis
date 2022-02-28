@@ -1,25 +1,26 @@
-function [something, here] = calculate1wayANOVA(inputs)
-% This code is super incomplete, but hopefully makes enough sense to turn
-% into functioning code
-labels = {'Ctrl','1MS','2WS'};
-    rData1 = NaN(max('largest group'),3);
-    lData1 = NaN(max('largest group'),3);
-    
-    rData1(1:n,1)  = data{1,2};
-    rData1(1:n,2)  = data{2,2};
-    rData1(1:n,3) = data{3,2};
-    
-       
-    lData1(1:8,1)  = data{1,1};
-    lData1(1:7,2)  = data{1,2};
-    lData1(1:10,3) = data{1,3}
+function [stats] = calculate1wayANOVA(data)
+labels = {'Ctrl','2WS','1MS'};
+rData1 = NaN(max('largest group'),3);
+lData1 = NaN(max('largest group'),3);
 
-    
-    [~,rT1,rS1] = anova1(rData1,labels,'off');
-    [~,lT1,lS1] = anova1(lData1,labels,'off');
-    
-    [rC1,rM1,~,rNames1] = multcompare(rS1,'CType','bonferroni','Display','off');
-    
-    
-    [lC1,lM1,~,lNames1] = multcompare(lS1,'CType','bonferroni','Display','off');
+rData1(1:length(data{1,2}),1) = data{1,2};
+rData1(1:length(data{3,2}),2) = data{3,2};
+rData1(1:length(data{4,2}),3) = data{4,2};
+
+lData1(1:length(data{1,1}),1) = data{1,1};
+lData1(1:length(data{3,1}),2) = data{3,1};
+lData1(1:length(data{4,1}),3) = data{4,1};
+
+[stats.R_P,~,stats.R_S] = anova1(rData1,labels,'off');
+[stats.L_P,~,stats.L_S] = anova1(lData1,labels,'off');
+
+[stats.L_Comps,stats.L_Means,~,stats.L_Names] = multcompare(stats.L_S,'CType','bonferroni'); %,'Display','off');
+[stats.R_Comps,stats.R_Means,~,stats.R_Names] = multcompare(stats.R_S,'CType','bonferroni'); %,'Display','off');
+
+% means_r = stats_r{:,2};
+% std_errs_r = stats_r{:,3};
+% 
+% means_l = stats_l{:,2};
+% std_errs_l = stats_l{:,3};
+
 end
