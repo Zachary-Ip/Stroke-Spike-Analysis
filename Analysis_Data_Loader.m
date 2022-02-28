@@ -1,7 +1,6 @@
 %% initalize Parameters
 tic
 filepath = 'C:\Users\ipzach\Documents\Spiking Data';
-cd(filepath)
 animallist = dir;
 recording_freq = 32000;
 ds_factor = 32;
@@ -9,13 +8,14 @@ ds_freq = 1000;
 animal_names = [];
 preload = 1;
 
-for group = 1:5
+for group = 2:5
+cd(filepath)
     % Create variables which can be fed to stats later
     mFR_storage  = cell(1,2);
     mISI_storage = cell(1,2);
     mSFC_storage = cell(1,2);
     mSFC_freq_storage = cell(1,2);
-    % spec_storage = cell(5,2);
+    mSpec_storage = cell(1,2);
     
     mSTA_storage    = cell(1,2);
     mSTA_d_storage  = cell(1,2);
@@ -37,7 +37,7 @@ for group = 1:5
     sISI_storage = cell(1,2);
     sSFC_storage = cell(1,2);
     sSFC_freq_storage = cell(1,2);
-    % spec_storage = cell(5,2);
+    sSpec_storage = cell(1,2);
     
     sSTA_storage    = cell(1,2);
     sSTA_d_storage  = cell(1,2);
@@ -113,17 +113,13 @@ for group = 1:5
                 
                 multi_unit = [multi_unit; spike.neurons{1,1}.timestamps + time_adjust];
                 for kk = 2:length(spike.neurons)
-                    ind_units{kk,k} = spike.neurons{kk,1}.timestamps + time_adjust;
+                    ind_units{kk-1,k} = spike.neurons{kk-1,1}.timestamps + time_adjust;
                 end % kk
                 
                 full_ephys = [full_ephys reshape(ephys.dat, 1, [])];
                 time_adjust = length(full_ephys)./recording_freq;
                 cd ..
             end % k recording folders
-            single_unit1 = [ind_units{1,1}; ind_units{1,2}; ind_units{1,3}];
-            single_unit2 = [ind_units{2,1}; ind_units{2,2}; ind_units{2,3}];
-            single_unit3 = [ind_units{3,1}; ind_units{3,2}; ind_units{3,3}];
-            
             ds_ephys = downsample(full_ephys, ds_factor);
             delta = BPfilter(ds_ephys,1000,0.1,3);
             theta = BPfilter(ds_ephys,1000,3,7);
@@ -149,7 +145,7 @@ for group = 1:5
             [mFR] = calculateFiringRate(multi_unit, total_time, ds_freq);
             [mISI] = calculateISI(multi_unit);
             [~,mSFC,~,~,~,~,mSFC_freq] = getCoherence(multi_unit,ds_ephys,ds_freq,1,0,0);
-            %[spec] = calculateSpec(multi_unit,ds_ephys, ds_freq);
+            
             
             [mA, mSTA] = calculateSTA(multi_unit, ds_ephys, ds_freq);
             [mdA, mdSTA] = calculateSTA(multi_unit, delta, ds_freq);
@@ -158,33 +154,30 @@ for group = 1:5
             [mbA, mbSTA] = calculateSTA(multi_unit, beta, ds_freq);
             [mgA, mgSTA] = calculateSTA(multi_unit, gamma, ds_freq);
             [mhgA, mhgSTA] = calculateSTA(multi_unit, hgamma, ds_freq);
-            
-            % Save Analysis
-            mFR_storage{1,j}    = [mFR_storage{1,j}; mFR];
-            mISI_storage{1,j}  = [mISI_storage{1,j}; mISI];
-            mSFC_storage{1,j}  = [mSFC_storage{1,j}; mSFC];
-            mSFC_freq_storage{1,j} = [mSFC_freq_storage{1,j}; mSFC_freq];
 
+            [mSpec] = spectrogram(mSTA);
+            % Save Analysis
+            mFR_storage{1,j}       = [mFR_storage{1,j}; mFR];
+            mISI_storage{1,j}      = [mISI_storage{1,j}; mISI];
+            mSFC_storage{1,j}      = [mSFC_storage{1,j}; mSFC];
+            mSFC_freq_storage{1,j} = [mSFC_freq_storage{1,j}; mSFC_freq];
+            mSpec_storage{1,j}     = cat(3,mSpec_storage{1,j}, mSpec);
             mSTAmean_storage{1,j}  = [mSTAmean_storage{1,j}; mSTA];
             mSTAmean_d_storage{1,j}  = [mSTAmean_d_storage{1,j}; mdSTA];
             mSTAmean_t_storage{1,j}  = [mSTAmean_t_storage{1,j}; mtSTA];
             mSTAmean_a_storage{1,j}  = [mSTAmean_a_storage{1,j}; maSTA];
             mSTAmean_b_storage{1,j}  = [mSTAmean_b_storage{1,j}; mbSTA];
             mSTAmean_g_storage{1,j}  = [mSTAmean_g_storage{1,j}; mgSTA];
-            mSTAmean_hg_storage{1,j}  = [mSTAmean_hg_storage{1,j}; mhgSTA];
+            mSTAmean_hg_storage{1,j} = [mSTAmean_hg_storage{1,j}; mhgSTA];
             
-            mSTA_storage{1,j}  = [mSTA_storage{1,j}; mA];
+            mSTA_storage{1,j}    = [mSTA_storage{1,j}; mA];
             mSTA_d_storage{1,j}  = [mSTA_d_storage{1,j}; mdA];
             mSTA_t_storage{1,j}  = [mSTA_t_storage{1,j}; mtA];
             mSTA_a_storage{1,j}  = [mSTA_a_storage{1,j}; maA];
             mSTA_b_storage{1,j}  = [mSTA_b_storage{1,j}; mbA];
             mSTA_g_storage{1,j}  = [mSTA_g_storage{1,j}; mgA];
-            mSTA_hg_storage{1,j}  = [mSTA_hg_storage{1,j}; mhgA];
+            mSTA_hg_storage{1,j} = [mSTA_hg_storage{1,j}; mhgA];
             
-            % spec_storage_m{1,j} = cat(3,spec_storage_m{1,j}, spec);
-            single_unit1 = [ind_units{1,1}; ind_units{1,2}; ind_units{1,3}];
-            single_unit2 = [ind_units{2,1}; ind_units{2,2}; ind_units{2,3}];
-            single_unit3 = [ind_units{3,1}; ind_units{3,2}; ind_units{3,3}];
             %% single units
             num_units = max(sum(~cellfun(@isempty, ind_units), 1));
             
@@ -193,8 +186,6 @@ for group = 1:5
                 [sFR] = calculateFiringRate(single_unit, total_time, ds_freq);
                 [sISI] = calculateISI(single_unit);
                 [~,sSFC,~,~,~,~,sSFC_freq] = getCoherence(single_unit,ds_ephys,ds_freq,1,0,0);
-                %[spec] = calculateSpec(multi_unit,ds_ephys, ds_freq);
-                
                 [sA, sSTA] = calculateSTA(single_unit, ds_ephys, ds_freq);
                 [sdA, sdSTA] = calculateSTA(single_unit, delta, ds_freq);
                 [stA, stSTA] = calculateSTA(single_unit, theta, ds_freq);
@@ -202,13 +193,13 @@ for group = 1:5
                 [sbA, sbSTA] = calculateSTA(single_unit, beta, ds_freq);
                 [sgA, sgSTA] = calculateSTA(single_unit, gamma, ds_freq);
                 [shgA, shgSTA] = calculateSTA(single_unit, hgamma, ds_freq);
-                
+                [sSpec] = spectrogram(sSTA);
                 % Save Analysis
                 sFR_storage{1,j}    = [sFR_storage{1,j}; sFR];
                 sISI_storage{1,j}  = [sISI_storage{1,j}; sISI];
                 sSFC_storage{1,j}  = [sSFC_storage{1,j}; sSFC];
                 sSFC_freq_storage{1,j} = [sSFC_freq_storage{1,j}; sSFC_freq];
-                
+                sSpec_storage{1,j} = cat(3,sSpec_storage{1,j}, sSpec);
                 sSTAmean_storage{1,j}  = [sSTAmean_storage{1,j}; sSTA];
                 sSTAmean_d_storage{1,j}  = [sSTAmean_d_storage{1,j}; sdSTA];
                 sSTAmean_t_storage{1,j}  = [sSTAmean_t_storage{1,j}; stSTA];
