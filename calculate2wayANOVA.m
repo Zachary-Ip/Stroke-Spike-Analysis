@@ -21,5 +21,4 @@ r_treat_labels = [repmat({'Standard'}, length(data{1,2})+length(data{4,2}),1);
 [stats.L_Comp,stats.L_Means,~,stats.L_Names] = multcompare(stats.L_S,'Dimension',[1 2],'CType','bonferroni');% ,'Display','off');
 [stats.R_Comp,stats.R_Means,~,stats.R_Names] = multcompare(stats.R_S,'Dimension',[1 2],'CType','bonferroni');%,'Display','off');
 a = 1+1;
-
 end
