@@ -11,47 +11,26 @@ preload = 1;
 for group = 1:5
     cd(filepath)
     % Create variables which can be fed to stats later
-%     mFR_storage  = cell(1,2);
-%     mISI_storage = cell(1,2);
-%     mSFC_storage = cell(1,2);
-%     mSpec_storage = cell(1,2);
-%     
-%     mSTA_storage    = cell(1,2);
-%     mSTA_d_storage  = cell(1,2);
-%     mSTA_t_storage  = cell(1,2);
-%     mSTA_a_storage  = cell(1,2);
-%     mSTA_b_storage  = cell(1,2);
-%     mSTA_g_storage  = cell(1,2);
-%     mSTA_hg_storage = cell(1,2);
-%     
-%     mSTAmean_storage = cell(1,2);
-%     mSTAmean_d_storage  = cell(1,2);
-%     mSTAmean_t_storage  = cell(1,2);
-%     mSTAmean_a_storage  = cell(1,2);
-%     mSTAmean_b_storage  = cell(1,2);
-%     mSTAmean_g_storage  = cell(1,2);
-%     mSTAmean_hg_storage  = cell(1,2);
+    FR_storage  = cell(1,2);
+    ISI_storage = cell(1,2);
+    SFC_storage = cell(1,2);
+    Spec_storage = cell(1,2);
     
-    sFR_storage  = cell(1,2);
-    sISI_storage = cell(1,2);
-    sSFC_storage = cell(1,2);
-    sSpec_storage = cell(1,2);
+    STA_storage    = cell(1,2);
+    STA_d_storage  = cell(1,2);
+    STA_t_storage  = cell(1,2);
+    STA_a_storage  = cell(1,2);
+    STA_b_storage  = cell(1,2);
+    STA_g_storage  = cell(1,2);
+    STA_hg_storage = cell(1,2);
     
-    sSTA_storage    = cell(1,2);
-    sSTA_d_storage  = cell(1,2);
-    sSTA_t_storage  = cell(1,2);
-    sSTA_a_storage  = cell(1,2);
-    sSTA_b_storage  = cell(1,2);
-    sSTA_g_storage  = cell(1,2);
-    sSTA_hg_storage = cell(1,2);
-    
-    sSTAmean_storage = cell(1,2);
-    sSTAmean_d_storage  = cell(1,2);
-    sSTAmean_t_storage  = cell(1,2);
-    sSTAmean_a_storage  = cell(1,2);
-    sSTAmean_b_storage  = cell(1,2);
-    sSTAmean_g_storage  = cell(1,2);
-    sSTAmean_hg_storage  = cell(1,2);
+    STAmean_storage = cell(1,2);
+    STAmean_d_storage  = cell(1,2);
+    STAmean_t_storage  = cell(1,2);
+    STAmean_a_storage  = cell(1,2);
+    STAmean_b_storage  = cell(1,2);
+    STAmean_g_storage  = cell(1,2);
+    STAmean_hg_storage  = cell(1,2);
     
     % Split animals into treatment groups
     switch group
@@ -140,44 +119,6 @@ for group = 1:5
             % single_unit# - may be empty depending on the animal, handles
             % up to 3 units
             disp(['Analyzing ' animals_in_group(i).name side])
-            % multi unit
-%             [mFR] = calculateFiringRate(multi_unit, total_time, ds_freq);
-%             [mISI] = calculateISI(multi_unit);
-%             [~,mSFC,~,~,~,~,SFC_freq] = getCoherence(multi_unit,ds_ephys,ds_freq,1,0,0);
-%             [mSpec, f, t] = calculateSpec(multi_unit,ds_ephys, ds_freq);
-%             
-%             [mA, mSTA] = calculateSTA(multi_unit, norm_ephys, ds_freq);
-%             [mdA, mdSTA] = calculateSTA(multi_unit, delta, ds_freq);
-%             [mtA, mtSTA] = calculateSTA(multi_unit, theta, ds_freq);
-%             [maA, maSTA] = calculateSTA(multi_unit, alpha, ds_freq);
-%             [mbA, mbSTA] = calculateSTA(multi_unit, beta, ds_freq);
-%             [mgA, mgSTA] = calculateSTA(multi_unit, gamma, ds_freq);
-%             [mhgA, mhgSTA] = calculateSTA(multi_unit, hgamma, ds_freq);
-%             
-%             %[mMtSpec] = spectrogram(mSTA);
-%             % Save Analysis
-%             mFR_storage{1,j}       = [mFR_storage{1,j}; mFR];
-%             mISI_storage{1,j}      = [mISI_storage{1,j}; mISI];
-%             mSFC_storage{1,j}      = [mSFC_storage{1,j} ; mSFC];
-%             %mMtSpec_storage{1,j}     = cat(3,mMtSpec_storage{1,j}, mMtSpec);
-%             mSpec_storage{1,j}     = cat(3,mSpec_storage{1,j}, mSpec);
-%             
-%             mSTAmean_storage{1,j}  = [mSTAmean_storage{1,j}; mSTA];
-%             mSTAmean_d_storage{1,j}  = [mSTAmean_d_storage{1,j}; mdSTA];
-%             mSTAmean_t_storage{1,j}  = [mSTAmean_t_storage{1,j}; mtSTA];
-%             mSTAmean_a_storage{1,j}  = [mSTAmean_a_storage{1,j}; maSTA];
-%             mSTAmean_b_storage{1,j}  = [mSTAmean_b_storage{1,j}; mbSTA];
-%             mSTAmean_g_storage{1,j}  = [mSTAmean_g_storage{1,j}; mgSTA];
-%             mSTAmean_hg_storage{1,j} = [mSTAmean_hg_storage{1,j}; mhgSTA];
-%             
-%             mSTA_storage{1,j}    = [mSTA_storage{1,j}; mA];
-%             mSTA_d_storage{1,j}  = [mSTA_d_storage{1,j}; mdA];
-%             mSTA_t_storage{1,j}  = [mSTA_t_storage{1,j}; mtA];
-%             mSTA_a_storage{1,j}  = [mSTA_a_storage{1,j}; maA];
-%             mSTA_b_storage{1,j}  = [mSTA_b_storage{1,j}; mbA];
-%             mSTA_g_storage{1,j}  = [mSTA_g_storage{1,j}; mgA];
-%             mSTA_hg_storage{1,j} = [mSTA_hg_storage{1,j}; mhgA];
-            
             %% single units
             num_units = max(sum(~cellfun(@isempty, ind_units), 1));
             
@@ -186,38 +127,36 @@ for group = 1:5
                 [sFR] = calculateFiringRate(single_unit, total_time, ds_freq);
                 [sISI] = calculateISI(single_unit);
                 [~,sSFC,~,~,~,~,~] = getCoherence(single_unit,ds_ephys,ds_freq,1,0,0);
-                % [sSpec,~,~] = calculateSpec(single_unit,ds_ephys,
-                % ds_freq); % Do NOT run, this will make a huge file
                 
-                [sA, sSTA] = calculateSTA(single_unit, norm_ephys, ds_freq);
-                [sdA, sdSTA] = calculateSTA(single_unit, delta, ds_freq);
-                [stA, stSTA] = calculateSTA(single_unit, theta, ds_freq);
-                [saA, saSTA] = calculateSTA(single_unit, alpha, ds_freq);
-                [sbA, sbSTA] = calculateSTA(single_unit, beta, ds_freq);
-                [sgA, sgSTA] = calculateSTA(single_unit, gamma, ds_freq);
-                [shgA, shgSTA] = calculateSTA(single_unit, hgamma, ds_freq);
-                %[sSpec] = spectrogram(sSTA);
+                [A, STA] = calculateSTA(single_unit, norm_ephys, ds_freq);
+                [dA, dSTA] = calculateSTA(single_unit, delta, ds_freq);
+                [tA, tSTA] = calculateSTA(single_unit, theta, ds_freq);
+                [aA, aSTA] = calculateSTA(single_unit, alpha, ds_freq);
+                [bA, bSTA] = calculateSTA(single_unit, beta, ds_freq);
+                [gA, gSTA] = calculateSTA(single_unit, gamma, ds_freq);
+                [hgA, hgSTA] = calculateSTA(single_unit, hgamma, ds_freq);
+                [Spec] = spectrogram(STA,24,1,60,1000);
                 % Save Analysis
-                sFR_storage{1,j}    = [sFR_storage{1,j}; sFR];
-                sISI_storage{1,j}  = [sISI_storage{1,j}; sISI];
-                sSFC_storage{1,j}  = [sSFC_storage{1,j}; sSFC];
-                sSpec_storage{1,j} = cat(3,sSpec_storage{1,j}, sSpec);
+                FR_storage{1,j}    = [FR_storage{1,j}; sFR];
+                ISI_storage{1,j}  = [ISI_storage{1,j}; sISI];
+                SFC_storage{1,j}  = [SFC_storage{1,j}; sSFC];
+                Spec_storage{1,j} = cat(3,Spec_storage{1,j}, Spec);
                 
-                sSTAmean_storage{1,j}  = [sSTAmean_storage{1,j}; sSTA];
-                sSTAmean_d_storage{1,j}  = [sSTAmean_d_storage{1,j}; sdSTA];
-                sSTAmean_t_storage{1,j}  = [sSTAmean_t_storage{1,j}; stSTA];
-                sSTAmean_a_storage{1,j}  = [sSTAmean_a_storage{1,j}; saSTA];
-                sSTAmean_b_storage{1,j}  = [sSTAmean_b_storage{1,j}; sbSTA];
-                sSTAmean_g_storage{1,j}  = [sSTAmean_g_storage{1,j}; sgSTA];
-                sSTAmean_hg_storage{1,j}  = [sSTAmean_hg_storage{1,j}; shgSTA];
+                STAmean_storage{1,j}  = [STAmean_storage{1,j}; STA];
+                STAmean_d_storage{1,j}  = [STAmean_d_storage{1,j}; dSTA];
+                STAmean_t_storage{1,j}  = [STAmean_t_storage{1,j}; tSTA];
+                STAmean_a_storage{1,j}  = [STAmean_a_storage{1,j}; aSTA];
+                STAmean_b_storage{1,j}  = [STAmean_b_storage{1,j}; bSTA];
+                STAmean_g_storage{1,j}  = [STAmean_g_storage{1,j}; gSTA];
+                STAmean_hg_storage{1,j}  = [STAmean_hg_storage{1,j}; hgSTA];
                 
-                sSTA_storage{1,j}  = [sSTA_storage{1,j}; sA];
-                sSTA_d_storage{1,j}  = [sSTA_d_storage{1,j}; sdA];
-                sSTA_t_storage{1,j}  = [sSTA_t_storage{1,j}; stA];
-                sSTA_a_storage{1,j}  = [sSTA_a_storage{1,j}; saA];
-                sSTA_b_storage{1,j}  = [sSTA_b_storage{1,j}; sbA];
-                sSTA_g_storage{1,j}  = [sSTA_g_storage{1,j}; sgA];
-                sSTA_hg_storage{1,j}  = [sSTA_hg_storage{1,j}; shgA];
+                STA_storage{1,j}  = [STA_storage{1,j}; A];
+                STA_d_storage{1,j}  = [STA_d_storage{1,j}; dA];
+                STA_t_storage{1,j}  = [STA_t_storage{1,j}; tA];
+                STA_a_storage{1,j}  = [STA_a_storage{1,j}; aA];
+                STA_b_storage{1,j}  = [STA_b_storage{1,j}; bA];
+                STA_g_storage{1,j}  = [STA_g_storage{1,j}; gA];
+                STA_hg_storage{1,j}  = [STA_hg_storage{1,j}; hgA];
             end % num units
             cd ..
             cd ..
@@ -226,11 +165,7 @@ for group = 1:5
     end
     
     %% save data
-    cd 'C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts'
-%     save([save_name '_multiunit_measures'],'mFR_storage','mISI_storage','mSFC_storage','mSpec_storage','SFC_freq','f','t',...
-%         'mSTAmean_storage','mSTAmean_d_storage','mSTAmean_t_storage','mSTAmean_a_storage','mSTAmean_b_storage','mSTAmean_g_storage','mSTAmean_hg_storage',...
-%         'mSTA_storage','mSTA_d_storage','mSTA_t_storage','mSTA_a_storage','mSTA_b_storage','mSTA_g_storage','mSTA_hg_storage', '-v7.3')
-    
+    cd 'C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts'   
     save([save_name '_singleunit_measures'],'sFR_storage','sISI_storage','sSFC_storage','sSpec_storage','SFC_freq','f','t',...
         'sSTAmean_storage','sSTAmean_d_storage','sSTAmean_t_storage','sSTAmean_a_storage','sSTAmean_b_storage','sSTAmean_g_storage','sSTAmean_hg_storage',...
         'sSTA_storage','sSTA_d_storage','sSTA_t_storage','sSTA_a_storage','sSTA_b_storage','sSTA_g_storage','sSTA_hg_storage', '-v7.3')
