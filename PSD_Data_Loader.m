@@ -107,5 +107,5 @@ for group = 1:5
     
     %% save data
     cd 'C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts'   
-    save([save_name '_PSD'],'PSD_storage','f')
+    save([save_name '_PSD'],'PSD_storage','f','-v7.3')
 end
