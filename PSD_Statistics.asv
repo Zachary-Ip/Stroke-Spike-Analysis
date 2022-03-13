@@ -46,24 +46,23 @@ hi    = [3,7,13,30,58,200];
 for j = 1:6
     idxs = find(f >= low(j) & f <= hi(j));
     switch j
-        case 1 % Delta
-            PSD_d = cellfun(@(v) mean(v(:,idxs),2), PSD, 'UniformOutput',false);
-        case 2 % Theta
-            PSD_t = cellfun(@(v) mean(v(:,idxs),2), PSD, 'UniformOutput',false);
-        case 3 % Alpha
-            PSD_a = cellfun(@(v) mean(v(:,idxs),2), PSD, 'UniformOutput',false);
-        case 4 % Beta
-            PSD_b = cellfun(@(v) mean(v(:,idxs),2), PSD, 'UniformOutput',false);
-        case 5 % Gamma
-            PSD_g = cellfun(@(v) mean(v(:,idxs),2), PSD, 'UniformOutput',false);
-        case 6 % High gamma
-            PSD_hg = cellfun(@(v) mean(v(:,idxs),2), PSD, 'UniformOutput',false);
+        case 1
+            SFC_d = cellfun(@(v) mean(v(:,idxs),2), SFC, 'UniformOutput',false);
+        case 2
+            SFC_t = cellfun(@(v) mean(v(:,idxs),2), SFC, 'UniformOutput',false);
+        case 3
+            SFC_a = cellfun(@(v) mean(v(:,idxs),2), SFC, 'UniformOutput',false);
+        case 4
+            SFC_b = cellfun(@(v) mean(v(:,idxs),2), SFC, 'UniformOutput',false);
+        case 5
+            SFC_g = cellfun(@(v) mean(v(:,idxs),2), SFC, 'UniformOutput',false);
+        case 6
+            SFC_hg = cellfun(@(v) mean(v(:,idxs),2), SFC, 'UniformOutput',false);
     end
 end
 %% 1way ANOVA Stats
-PSD_d_stats1 = calculate1wayANOVA(PSD_d);
-PSD_t_stats1 = calculate1wayANOVA(PSD_t);
-% etc, I got lazy lol
+PSD_stats1 = calculate1wayANOVA(PSD);
+
 %% single unit 2way ANOVA stats
 PSD_stats2    = calculate2wayANOVA(PSD);
 
