@@ -125,6 +125,7 @@ sSFC_hg_stats1 = calculate1wayANOVA(SFC_hg);
 disp('single unit 2way')
 % Non frequency delineated
 disp('FR')
+%%
 sFR_stats2    = calculate2wayANOVA(FR);
 disp('ISI')
 sISI_stats2   = calculate2wayANOVA(ISI);

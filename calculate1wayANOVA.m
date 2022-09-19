@@ -19,5 +19,4 @@ rData(1:length(data{4,2}),3) = data{4,2};
 
 [stats.L_Comp,stats.L_Means,~,stats.L_Names] = multcompare(stats.L_S,'CType','bonferroni'); %,'Display','off');
 [stats.R_Comp,stats.R_Means,~,stats.R_Names] = multcompare(stats.R_S,'CType','bonferroni'); %,'Display','off');
-a = 1+1;
 end
