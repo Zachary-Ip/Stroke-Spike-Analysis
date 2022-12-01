@@ -55,7 +55,7 @@ for group = 1:5 % number of groups
             group_name = 'AEE*'; % EE Stroke
             save_name = 'EEOneMonth';
     end
-    % Find files with relevant file name
+    
     animals_in_group = dir(group_name);
     
     % Run through each animal
@@ -75,7 +75,6 @@ for group = 1:5 % number of groups
             channel_names = dir('CSC*').name;
             cd(channel_names)
             recording_folders = dir('REC*');
-            % Inialize storage variables for each recording. 
             full_ephys = [];
             multi_unit = [];
             ind_units = cell(3,3);
@@ -103,10 +102,8 @@ for group = 1:5 % number of groups
                 time_adjust = length(full_ephys)./recording_freq;
                 cd ..
             end % k recording folders
-            
-            % now with full data preprocess ephys 
             ds_ephys = downsample(full_ephys, ds_factor);
-            norm_ephys = normalize(ds_ephys); % why am I normalizing? 
+            norm_ephys = normalize(ds_ephys);
             delta = BPfilter(norm_ephys,1000,0.1,3);
             theta = BPfilter(norm_ephys,1000,3,7);
             alpha = BPfilter(norm_ephys,1000,7,13);

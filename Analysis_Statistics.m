@@ -28,15 +28,15 @@ STAmean_t = cell(5,2);
 for i = 1:5
     switch i
         case 1
-            load('C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts\Control_singleunit_measures.mat')
+            load('C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts\Control_singleunit_measures.mat')
         case 2
-            load('C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts\EEControl_singleunit_measures.mat')
+            load('C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts\EEControl_singleunit_measures.mat')
         case 3
-            load('C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts\TwoWeek_singleunit_measures.mat')
+            load('C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts\TwoWeek_singleunit_measures.mat')
         case 4
-            load('C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts\OneMonth_singleunit_measures.mat')
+            load('C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts\OneMonth_singleunit_measures.mat')
         case 5
-            load('C:\Users\ipzach\Documents\MATLAB\Spike Sorting Scripts\EEOneMonth_singleunit_measures.mat')
+            load('C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts\EEOneMonth_singleunit_measures.mat')
     end
 
     FR{i,1}         = FR_storage{1,1};                   FR{i,2} = FR_storage{1,2};
