@@ -19,7 +19,7 @@ for group = 1:5 % number of groups
     FR_storage  = cell(1,2);
     ISI_storage = cell(1,2);
     SFC_storage = cell(1,2);
-    Spec_storage = cell(1,2);
+    %Spec_storage = cell(1,2);
     
     STA_storage    = cell(1,2);
     STA_d_storage  = cell(1,2);
@@ -143,12 +143,12 @@ for group = 1:5 % number of groups
                 [bA, bSTA] = calculateSTA(single_unit, beta, ds_freq);
                 [gA, gSTA] = calculateSTA(single_unit, gamma, ds_freq);
                 [hgA, hgSTA] = calculateSTA(single_unit, hgamma, ds_freq);
-                [Spec, f, t] = spectrogram(STA,24,1,60,1000);
+                %[Spec, f, t] = spectrogram(STA,24,1,60,1000);
                 % Save Analysis
                 FR_storage{1,j}    = [FR_storage{1,j}; FR];
                 ISI_storage{1,j}  = [ISI_storage{1,j}; ISI];
                 SFC_storage{1,j}  = [SFC_storage{1,j}; SFC];
-                Spec_storage{1,j} = cat(3,Spec_storage{1,j}, Spec);
+                %Spec_storage{1,j} = cat(3,Spec_storage{1,j}, Spec);
                 
                 STAmean_storage{1,j}  = [STAmean_storage{1,j}; STA];
                 STAmean_d_storage{1,j}  = [STAmean_d_storage{1,j}; dSTA];
@@ -173,8 +173,9 @@ for group = 1:5 % number of groups
     end
     
     %% save data
-    cd 'C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts'   
-    save([save_name '_singleunit_measures'],'FR_storage','ISI_storage','SFC_storage','Spec_storage','SFC_freq','f','t',...
+    cd 'C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts'  
+    % removed: 'Spec_storage'
+    save([save_name '_singleunit_measures'],'FR_storage','ISI_storage','SFC_storage','SFC_freq','f','t',...
         'STAmean_storage','STAmean_d_storage','STAmean_t_storage','STAmean_a_storage','STAmean_b_storage','STAmean_g_storage','STAmean_hg_storage',...
         'STA_storage','STA_d_storage','STA_t_storage','STA_a_storage','STA_b_storage','STA_g_storage','STA_hg_storage', '-v7.3')
     toc

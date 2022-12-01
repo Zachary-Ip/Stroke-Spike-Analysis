@@ -42,7 +42,7 @@ for i = 1:5
     FR{i,1}         = FR_storage{1,1};                   FR{i,2} = FR_storage{1,2};
     ISI{i,1}        = ISI_storage{1,1};                  ISI{i,2} = ISI_storage{1,2};
     SFC{i,1}        = SFC_storage{1,1};                  SFC{i,2} = SFC_storage{1,2};
-    Spec{i,1}       = Spec_storage{1,1};                Spec{i,2} = Spec_storage{1,2};
+    %Spec{i,1}       = Spec_storage{1,1};                Spec{i,2} = Spec_storage{1,2};
     
     STA_a{i,1}      = STA_a_storage{1,1};              STA_a{i,2} = STA_a_storage{1,2};
     STA_b{i,1}      = STA_b_storage{1,1};              STA_b{i,2} = STA_b_storage{1,2};
