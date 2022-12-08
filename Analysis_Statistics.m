@@ -1,4 +1,5 @@
 % Analysis_Stats
+addpath('C:\Users\ipzach\Documents\MATLAB\spectral-analysis-tools')
 FR = cell(5,2);
 ISI = cell(5,2);
 SFC = cell(5,2);
@@ -86,81 +87,354 @@ disp('single unit 1way')
 % Non frequency delineated
 disp('FR')
 sFR_stats1 = calculate1wayANOVA(FR);
+sFR_vals1 = vals4plot(FR, '1way');
+figure
+subplot(1,2,1)
+plot_box(sFR_vals1.L_vals, sFR_stats1.L_Comp, 1)
+title('Ipsi Firing Rate')
+
+subplot(1,2,2)
+plot_box(sFR_vals1.R_vals, sFR_stats1.R_Comp, 1)
+title('Contra Firing Rate')
+
+%%
 disp('ISI')
 sISI_stats1 = calculate1wayANOVA(ISI);
-%disp('Spec')
-% sSpec_stats1 = calculate1wayANOVA(sSpec);
-% STA
+sISI_vals1 = vals4plot(ISI, '1way');
+figure
+subplot(1,2,1)
+plot_box(sISI_vals1.L_vals, sISI_stats1.L_Comp, 1)
+title('Ipsi ISI')
+
+subplot(1,2,2)
+plot_box(sISI_vals1.R_vals, sISI_stats1.R_Comp, 1)
+title('Contra ISI')
+%%
 disp('STA')
 sSTA_stats1 = calculate1wayANOVA(STA);
+sSTA_vals1 = vals4plot(STA, '1way');
+
+figure
+subplot(1,2,1)
+plot_box(sSTA_vals1.L_vals, sSTA_stats1.L_Comp, 1)
+title('Ipsi STA')
+
+subplot(1,2,2)
+plot_box(sSTA_vals1.R_vals, sSTA_stats1.R_Comp, 1)
+title('Contra STA')
+%%
 disp('Alpha')
 sSTA_a_stats1 = calculate1wayANOVA(STA_a);
+sSTA_a_vals1 = vals4plot(STA_a, '1way');
+
+figure
+subplot(1,2,1)
+plot_box(sSTA_a_vals1.L_vals, sSTA_a_stats1.L_Comp, 1)
+title('Ipsi Alpha STA')
+
+subplot(1,2,2)
+plot_box(sSTA_a_vals1.R_vals, sSTA_a_stats1.R_Comp, 1)
+title('Contra Alpha STA')
+%%
 disp('Beta')
 sSTA_b_stats1 = calculate1wayANOVA(STA_b);
+sSTA_b_vals1 = vals4plot(STA_b, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_b_vals1.L_vals, sSTA_b_stats1.L_Comp, 1)
+title('Ipsi Beta STA')
+
+subplot(1,2,2)
+plot_box(sSTA_b_vals1.R_vals, sSTA_b_stats1.R_Comp, 1)
+title('Contra Beta STA')
+%%
 disp('Delta')
 sSTA_d_stats1 = calculate1wayANOVA(STA_d);
+sSTA_d_vals1 = vals4plot(STA_d, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_d_vals1.L_vals, sSTA_d_stats1.L_Comp, 1)
+title('Ipsi Delta STA')
+
+subplot(1,2,2)
+plot_box(sSTA_b_vals1.R_vals, sSTA_b_stats1.R_Comp, 1)
+title('Contra Delta STA')
+%%
 disp('Theta')
 sSTA_t_stats1 = calculate1wayANOVA(STA_t);
+sSTA_t_vals1 = vals4plot(STA_t, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_t_vals1.L_vals, sSTA_t_stats1.L_Comp, 1)
+title('Ipsi Theta STA')
+
+subplot(1,2,2)
+plot_box(sSTA_t_vals1.R_vals, sSTA_t_stats1.R_Comp, 1)
+title('Contra Theta STA')
+%%
 disp('Gamma')
 sSTA_g_stats1 = calculate1wayANOVA(STA_g);
+sSTA_g_vals1 = vals4plot(STA_g, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_g_vals1.L_vals, sSTA_g_stats1.L_Comp, 1)
+title('Ipsi Gamma STA')
+
+subplot(1,2,2)
+plot_box(sSTA_g_vals1.R_vals, sSTA_g_stats1.R_Comp, 1)
+title('Contra Gamma STA')
+%%
 disp('High Gamma')
 sSTA_hg_stats1 = calculate1wayANOVA(STA_hg);
+sSTA_hg_vals1 = vals4plot(STA_hg, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_hg_vals1.L_vals, sSTA_hg_stats1.L_Comp, 1)
+title('Ipsi High Gamma STA')
 
+subplot(1,2,2)
+plot_box(sSTA_hg_vals1.R_vals, sSTA_hg_stats1.R_Comp, 1)
+title('Contra High Gamma STA')
+%%
 % SFC
 disp('SFC')
 disp('Alpha')
 sSFC_a_stats1 = calculate1wayANOVA(SFC_a);
+sSFC_a_vals1 = vals4plot(SFC_a, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_a_vals1.L_vals, sSFC_a_stats1.L_Comp, 1)
+title('Ipsi Alpha SFC')
+
+subplot(1,2,2)
+plot_box(sSFC_a_vals1.R_vals, sSFC_a_stats1.R_Comp, 1)
+title('Contra Alpha SFC')
+%%
 disp('Beta')
 sSFC_b_stats1 = calculate1wayANOVA(SFC_b);
+sSFC_b_vals1 = vals4plot(SFC_b, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_b_vals1.L_vals, sSFC_b_stats1.L_Comp, 1)
+title('Ipsi Beta SFC')
+
+subplot(1,2,2)
+plot_box(sSFC_b_vals1.R_vals, sSFC_b_stats1.R_Comp, 1)
+title('Contra Beta SFC')
+%%
 disp('Delta')
 sSFC_d_stats1 = calculate1wayANOVA(SFC_d);
+sSFC_d_vals1 = vals4plot(SFC_d, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_d_vals1.L_vals, sSFC_d_stats1.L_Comp, 1)
+title('Ipsi Delta SFC')
+
+subplot(1,2,2)
+plot_box(sSFC_d_vals1.R_vals, sSFC_d_stats1.R_Comp, 1)
+title('Contra Delta SFC')
+%%
 disp('Theta')
 sSFC_t_stats1 = calculate1wayANOVA(SFC_t);
+sSFC_t_vals1 = vals4plot(SFC_t, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_t_vals1.L_vals, sSFC_t_stats1.L_Comp, 1)
+title('Ipsi Theta SFC')
+
+subplot(1,2,2)
+plot_box(sSFC_t_vals1.R_vals, sSFC_t_stats1.R_Comp, 1)
+title('Contra Theta SFC')
+%%
 disp('Gamma')
 sSFC_g_stats1 = calculate1wayANOVA(SFC_g);
+sSFC_g_vals1 = vals4plot(SFC_g, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_g_vals1.L_vals, sSFC_g_stats1.L_Comp, 1)
+title('Ipsi Gamma SFC')
+
+subplot(1,2,2)
+plot_box(sSFC_g_vals1.R_vals, sSFC_g_stats1.R_Comp, 1)
+title('Contra Gamma SFC')
+%%
 disp('High Gamma')
 sSFC_hg_stats1 = calculate1wayANOVA(SFC_hg);
+sSFC_hg_vals1 = vals4plot(SFC_hg, '1way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_hg_vals1.L_vals, sSFC_hg_stats1.L_Comp, 1)
+title('Ipsi High Gamma SFC')
+
+subplot(1,2,2)
+plot_box(sSFC_hg_vals1.R_vals, sSFC_hg_stats1.R_Comp, 1)
+title('Contra High Gamma SFC')
 
 %% single unit 2way ANOVA stats
 disp('single unit 2way')
 % Non frequency delineated
 disp('FR')
+sFR_stats2 = calculate2wayANOVA(FR);
+sFR_vals2 = vals4plot(FR, '2way');
+figure
+subplot(1,2,1)
+plot_box(sFR_vals2.L_vals, sFR_stats2.L_Comp, 2)
+title('Ipsi Firing Rate')
+% set(gca, 'Color',{'b','k','r','m'});
+subplot(1,2,2)
+plot_box(sFR_vals2.R_vals, sFR_stats2.R_Comp, 2)
+title('Contra Firing Rate')
 %%
-sFR_stats2    = calculate2wayANOVA(FR);
 disp('ISI')
 sISI_stats2   = calculate2wayANOVA(ISI);
-disp('Spec')
+sISI_vals2 = vals4plot(ISI, '2way');
+figure
+subplot(1,2,1)
+plot_box(sISI_vals2.L_vals, sISI_stats2.L_Comp, 2);
+title('Ipsi ISI')
+subplot(1,2,2)
+plot_box(sISI_vals2.R_vals, sISI_stats2.R_Comp, 2);
+title('Contra ISI')
 % sSpec_stats2  =calculate2wayANOVA(sSpec);
-% STA
+%%  STA
 disp('STA')
 sSTA_stats2   = calculate2wayANOVA(STA);
+sSTA_vals2 = vals4plot(STA, '2way');
+
+%%
 disp('Alpha')
 sSTA_a_stats2 = calculate2wayANOVA(STA_a);
+sSTA_a_vals2 = vals4plot(STA_a, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_a_vals2.L_vals, sSTA_a_stats2.L_Comp, 2);
+title('Ipsi Alpha STA')
+subplot(1,2,2)
+plot_box(sSTA_a_vals2.R_vals, sSTA_a_stats2.R_Comp, 2);
+title('Contra Alpha STA')
+%%
 disp('Beta')
 sSTA_b_stats2 = calculate2wayANOVA(STA_b);
+sSTA_b_vals2 = vals4plot(STA_b, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_b_vals2.L_vals, sSTA_b_stats2.L_Comp, 2);
+title('Ipsi Beta STA')
+subplot(1,2,2)
+plot_box(sSTA_b_vals2.R_vals, sSTA_b_stats2.R_Comp, 2);
+title('Contra Beta STA')
+%%
 disp('Delta')
 sSTA_d_stats2 = calculate2wayANOVA(STA_d);
+sSTA_d_vals2 = vals4plot(STA_d, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_d_vals2.L_vals, sSTA_d_stats2.L_Comp, 2);
+title('Ipsi Delta STA')
+subplot(1,2,2)
+plot_box(sSTA_d_vals2.R_vals, sSTA_d_stats2.R_Comp, 2);
+title('Contra Delta STA')
+%%
 disp('Theta')
 sSTA_t_stats2 = calculate2wayANOVA(STA_t);
+sSTA_t_vals2 = vals4plot(STA_t, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_t_vals2.L_vals, sSTA_t_stats2.L_Comp, 2);
+title('Ipsi Theta STA')
+subplot(1,2,2)
+plot_box(sSTA_t_vals2.R_vals, sSTA_t_stats2.R_Comp, 2);
+title('Contra Theta STA')
+%%
 disp('Gamma')
 sSTA_g_stats2 = calculate2wayANOVA(STA_g);
+sSTA_g_vals2 = vals4plot(STA_g, '2way');
+
+figure
+subplot(1,2,1)
+plot_box(sSTA_g_vals2.L_vals, sSTA_g_stats2.L_Comp, 2);
+title('Ipsi Gamma STA')
+subplot(1,2,2)
+plot_box(sSTA_g_vals2.R_vals, sSTA_g_stats2.R_Comp, 2);
+title('Contra Gamma STA')
+%%
 disp('High Gamma')
 sSTA_hg_stats2 = calculate2wayANOVA(STA_hg);
-% SFC
+sSTA_hg_vals2 = vals4plot(STA_hg, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSTA_hg_vals2.L_vals, sSTA_hg_stats2.L_Comp, 2);
+title('Ipsi High Gamma STA')
+subplot(1,2,2)
+plot_box(sSTA_hg_vals2.R_vals, sSTA_hg_stats2.R_Comp, 2);
+title('Contra High Gamma STA')
+%% SFC
 disp('SFC')
 disp('Alpha')
 sSFC_a_stats2 = calculate2wayANOVA(SFC_a);
+sSFC_a_vals2 = vals4plot(SFC_a, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_a_vals2.L_vals, sSFC_a_stats2.L_Comp, 2);
+title('Ipsi Alpha SFC')
+subplot(1,2,2)
+plot_box(sSFC_a_vals2.R_vals, sSFC_a_stats2.R_Comp, 2);
+title('Contra Alpha SFC')
+%%
 disp('Beta')
 sSFC_b_stats2 = calculate2wayANOVA(SFC_b);
+sSFC_b_vals2 = vals4plot(SFC_b, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_b_vals2.L_vals, sSFC_b_stats2.L_Comp, 2);
+title('Ipsi Beta SFC')
+subplot(1,2,2)
+plot_box(sSFC_b_vals2.R_vals, sSFC_b_stats2.R_Comp, 2);
+title('Contra Beta SFC')
+%%
 disp('Delta')
 sSFC_d_stats2 = calculate2wayANOVA(SFC_d);
+sSFC_d_vals2 = vals4plot(SFC_d, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_d_vals2.L_vals, sSFC_d_stats2.L_Comp, 2);
+title('Ipsi Delta SFC')
+subplot(1,2,2)
+plot_box(sSFC_d_vals2.R_vals, sSFC_d_stats2.R_Comp, 2);
+title('Contra Delta SFC')
+%%
 disp('Theta')
 sSFC_t_stats2 = calculate2wayANOVA(SFC_t);
+sSFC_t_vals2 = vals4plot(SFC_t, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_t_vals2.L_vals, sSFC_t_stats2.L_Comp, 2);
+title('Ipsi Theta SFC')
+subplot(1,2,2)
+plot_box(sSFC_t_vals2.R_vals, sSFC_t_stats2.R_Comp, 2);
+title('Contra Theta SFC')
+%%
 disp('Gamma')
 sSFC_g_stats2 = calculate2wayANOVA(SFC_g);
+sSFC_g_vals2 = vals4plot(SFC_g, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_g_vals2.L_vals, sSFC_g_stats2.L_Comp, 2);
+title('Ipsi Gamma SFC')
+subplot(1,2,2)
+plot_box(sSFC_g_vals2.R_vals, sSFC_g_stats2.R_Comp, 2);
+title('Contra Gamma SFC')
+%%
 disp('High Gamma')
 sSFC_hg_stats2 = calculate2wayANOVA(SFC_hg);
-
+sSFC_hg_vals2 = vals4plot(SFC_hg, '2way');
+figure
+subplot(1,2,1)
+plot_box(sSFC_hg_vals2.L_vals, sSFC_hg_stats2.L_Comp, 2);
+title('Ipsi High Gamma SFC')
+subplot(1,2,2)
+plot_box(sSFC_hg_vals2.R_vals, sSFC_hg_stats2.R_Comp, 2);
+title('Contra High Gamma SFC')
 %% View spectrogram summaries
 % precalc
 % 
