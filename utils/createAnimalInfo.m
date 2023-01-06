@@ -18,8 +18,40 @@ for i=1:size(a, 1)
         end
         s(k).keep = v == 0 && ( ...
             isfile(fullfile(cache_dir, 'data', [s(k).name '.mat'])) ...
-            || isfolder(fullfile(data_dir, 'Spiking Data', s(k).alt_name2))...
+            || false...isfolder(fullfile(data_dir, 'Spiking Data', s(k).alt_name2))...  % HACK: don't touch data dir
         );
+
+        if ~isempty(a{i, 2}(j).L_chn{1})
+            s(k).L_cortex_chan = a{i, 2}(j).L_chn{1}(1);
+        else
+            s(k).L_cortex_chan = [];
+        end
+        if ~isempty(a{i, 2}(j).L_chn{2})
+            s(k).L_pyramidal_chan = a{i, 2}(j).L_chn{2}(1);
+        else
+            s(k).L_pyramidal_chan = [];
+        end
+        if ~isempty(a{i, 2}(j).L_chn{3})
+            s(k).L_stratum_chan = a{i, 2}(j).L_chn{3}(1);
+        else
+            s(k).L_stratum_chan = [];
+        end
+        if ~isempty(a{i, 2}(j).R_chn{1})
+            s(k).R_cortex_chan = a{i, 2}(j).R_chn{1}(1);
+        else
+            s(k).R_cortex_chan = [];
+        end
+        if ~isempty(a{i, 2}(j).R_chn{2})
+            s(k).R_pyramidal_chan = a{i, 2}(j).R_chn{2}(1);
+        else
+            s(k).R_pyramidal_chan = [];
+        end
+        if ~isempty(a{i, 2}(j).R_chn{3})
+            s(k).R_stratum_chan = a{i, 2}(j).R_chn{3}(1);
+        else
+            s(k).R_stratum_chan = [];
+        end
+
         k = k + 1;
     end
 end
