@@ -114,6 +114,23 @@ for group = 1:5 % number of groups
             gamma = BPfilter(norm_ephys,1000,30,58);
             hgamma = BPfilter(norm_ephys,1000,62,200);
             
+            % Calculate TD states
+            TD_idx = calculate_theta_state(theta, delta);
+            HTD = [];
+            HTD_idx = [];
+            for state = 1 : size(TD_idx, 2)
+                HTD = [HTD ds_ephys(TD_idx(1,state)+1:TD_idx(2, state))];
+                HTD_idx = [HTD_idx TD_idx(1,state):TD_idx(2,state)];
+            end % for state
+            
+            LTD = [];
+            LTD_idx = [];
+            for state = 1 : size(TD_idx, 2) -1
+                LTD = [LTD ds_ephys(TD_idx(2,state):TD_idx(1, state+1))];
+                LTD_idx = [LTD_idx TD_idx(2,state):TD_idx(1, state+1)];
+            end % for state
+            
+        
             ephys_time_idx = 1:length(ds_ephys);
             ephys_time_idx = ephys_time_idx./ds_freq;
             total_time = length(ds_ephys)./ ds_freq;
@@ -132,6 +149,9 @@ for group = 1:5 % number of groups
             
             for ii = 1:num_units
                 single_unit = [ind_units{ii,1}; ind_units{ii,2}; ind_units{ii,3}];
+                single_unit_idx = round(single_unit .*1250);
+%                 HTD_units_idx = intersect(HTD_idx, single_unit_idx);
+%                 LTD_units_idx = intersect(LTD_idx, single_unit_idx);
                 [FR] = calculateFiringRate(single_unit, total_time, ds_freq);
                 [ISI] = calculateISI(single_unit);
                 [~,SFC,~,~,~,~,SFC_freq] = getCoherence(single_unit,ds_ephys,ds_freq,1,0,0);
@@ -175,7 +195,7 @@ for group = 1:5 % number of groups
     %% save data
     cd 'C:\Users\ipzach\Documents\MATLAB\output\Spike Sorting Scripts'  
     % removed: 'Spec_storage'
-    save([save_name '_singleunit_measures'],'FR_storage','ISI_storage','SFC_storage','SFC_freq','f','t',...
+    save([save_name '_singleunit_measures'],'FR_storage','ISI_storage','SFC_storage','SFC_freq',...%'f','t',...
         'STAmean_storage','STAmean_d_storage','STAmean_t_storage','STAmean_a_storage','STAmean_b_storage','STAmean_g_storage','STAmean_hg_storage',...
         'STA_storage','STA_d_storage','STA_t_storage','STA_a_storage','STA_b_storage','STA_g_storage','STA_hg_storage', '-v7.3')
     toc

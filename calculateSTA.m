@@ -30,7 +30,7 @@ for i = 1:length(spikes)
         time_range_voltage_arr(i, :) = ephys(curr_time - 999:curr_time + 1000);
         
         % Calculate the amplitude of the spike by taking the maximum absolute value of the time range
-        amplitude(i) = max(abs(ephys(curr_time - 999:curr_time + 1000)))*2;
+        amplitude(i) = SignalPower(ephys(curr_time - 999:curr_time + 1000), fs);
     end
 end
 

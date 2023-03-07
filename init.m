@@ -1,10 +1,16 @@
-restoredefaultpath;
-clear RESTOREDEFAULTPATH_EXECUTED
+%restoredefaultpath;
+%clear RESTOREDEFAULTPATH_EXECUTED
 
+<<<<<<< Updated upstream
 config
 data_dir = fullfile(root_dir, 'DATA/Spike Data Cog Impairment Stroke');
 addpath analysis/ plots/ external/
 addpath(genpath('utils'))
+=======
+%config
+data_dir = fullfile('R:\DATA\Spike Data Cog Impairment Stroke');
+addpath analysis/ utils/
+>>>>>>> Stashed changes
 ft_defaults;
 
 Fs = 1250;

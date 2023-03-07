@@ -1,11 +1,23 @@
+% This script loads and processes data from multiple animals to calculate the
+% phase-pairing consistency (PPC) for each animal in the theta frequency range
+% (4-7 Hz). The PPC is calculated for three conditions: all spikes, spikes
+% occurring during high-theta-descending (HTD) periods, and spikes occurring
+% during low-theta-descending (LTD) periods. The PPC for each animal is
+% plotted as a heatmap and as a bar graph with error bars. Statistical
+% significances between the HTD and LTD conditions are also plotted.
+
+% Clear workspace and initialize variables
 clear; init
-%% subset
+
+% Subset the animal information to exclude animals of type '2W Strk'
 animal_info = animal_info(~ismember({animal_info.type}, {'2W Strk'}));
 n = numel(animal_info);
-%% load HTD/LTD info
+% Load HTD/LTD information for each animal
 states = struct('L', cell(1, n), 'R', cell(1, n));
 for i=1:n
+    % Load cREM data for the current animal
     s = load(fullfile(data_dir, 'Chronic Stroke', animal_info(i).alt_name, 'cREM.mat')).cREM;
+    % Concatenate the start and end times of the HTD/LTD periods for left and right sides
     states(i).L = cat(1, s.L.start, s.L.end);
     states(i).R = cat(1, s.R.start, s.R.end);
 end
